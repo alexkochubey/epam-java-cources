@@ -15,6 +15,8 @@ public class Task001Test {
     private Task001 instance;
 
     @Before
+
+
     public void setUp() throws Exception {
         instance = TestHelper.getInstance(getClass());
     }
