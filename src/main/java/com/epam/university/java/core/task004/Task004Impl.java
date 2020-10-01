@@ -1,6 +1,10 @@
 package com.epam.university.java.core.task004;
 
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Task004Impl implements Task004 {
     @Override
@@ -8,9 +12,10 @@ public class Task004Impl implements Task004 {
         if (first == null
                 || second == null
                 || first.length < 0
-                || second.length < 0){
+                || second.length < 0) {
             throw new IllegalArgumentException("arguments are not provided");
-        } HashSet<String> set = new HashSet<>();
+        }
+        HashSet<String> set = new HashSet<>();
         set.addAll(Arrays.asList(first));
         set.retainAll(Arrays.asList(second));
         String[] intersection = {};

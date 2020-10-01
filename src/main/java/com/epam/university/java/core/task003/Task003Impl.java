@@ -1,21 +1,22 @@
 package com.epam.university.java.core.task003;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-/**
- * Task 003
- *
- * Alexey Kochubey
- */
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
+import java.util.TreeSet;
+import java.util.Collections;
+
 
 public class Task003Impl implements Task003 {
     @Override
     public String[] invert(String[] source) {
-        if (source == null){
+        if (source == null) {
             throw new IllegalArgumentException("Argument is not provided");
-        } String[] result = new String[source.length];
+        }
+        String[] result = new String[source.length];
         for (int i = 0; i < source.length; i++) {
             result[source.length - i - 1] = source[i];
         }
@@ -25,9 +26,10 @@ public class Task003Impl implements Task003 {
     @Override
     public String[] join(String[] first, String[] second) {
         if (first == null
-                || second == null){
+                || second == null) {
             throw new IllegalArgumentException("Arguments are not provided");
-        } String[] result = Stream.of(first, second)
+        }
+        String[] result = Stream.of(first, second)
                 .flatMap(Stream::of)
                 .toArray(String[]::new);
         return result;
@@ -44,37 +46,41 @@ public class Task003Impl implements Task003 {
 
     @Override
     public String[] filter(String[] source, FilteringCondition condition) {
-        if(source == null
-                || condition == null){
+        if (source == null
+                || condition == null) {
             throw new IllegalArgumentException("Wrong params");
-        } String[] result = Arrays.stream(source).filter(condition::isValid).toArray(String[]::new);
+        }
+        String[] result = Arrays.stream(source).filter(condition::isValid).toArray(String[]::new);
         return result;
     }
 
     @Override
     public String[] removeElements(String[] source, String[] toRemove) {
         if (source == null
-                || toRemove == null){
+                || toRemove == null) {
             throw new IllegalArgumentException("Wrong Arguments");
-        } List<String> remove = Arrays.asList(toRemove);
+        }
+        List<String> remove = Arrays.asList(toRemove);
         String[] result = Arrays.stream(source)
-                .filter(x->!remove.contains(x))
+                .filter(x -> !remove.contains(x))
                 .toArray(String[]::new);
         return result;
     }
 
     @Override
     public String[] map(String[] source, MappingOperation operation) {
-        if (source == null || operation == null){
+        if (source == null || operation == null) {
             throw new IllegalArgumentException("Arguments are not provided");
-        } for (int i = 0; i < source.length; i++){
+        }
+        for (int i = 0; i < source.length; i++) {
             source[i] = operation.map(source[i]);
-        }return source;
+        }
+        return source;
     }
 
     @Override
     public String[] flatMap(String[] source, FlatMappingOperation operation) {
-        if (source == null || operation == null){
+        if (source == null || operation == null) {
             throw new IllegalArgumentException("Arguments are not provided");
         }
         Comparator<String> comparator = new Comparator<>() {
@@ -83,12 +89,10 @@ public class Task003Impl implements Task003 {
                 return Integer.parseInt(o2) - Integer.parseInt(o1);
             }
         };
-
         Set<String> result = new TreeSet<>(comparator);
         for (String value : source) {
             Collections.addAll(result, operation.flatMap(value));
         }
-
         return result.toArray(new String[0]);
     }
 }

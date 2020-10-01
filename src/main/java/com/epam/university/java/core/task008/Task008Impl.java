@@ -1,6 +1,9 @@
 package com.epam.university.java.core.task008;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Task008Impl implements Task008 {
     @Override
