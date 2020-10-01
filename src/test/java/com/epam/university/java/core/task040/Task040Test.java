@@ -4,11 +4,8 @@ import com.epam.university.java.core.helper.TestHelper;
 import org.junit.Before;
 import org.junit.Test;
 
-<<<<<<< HEAD
-import static org.junit.Assert.*;
-=======
+
 import static org.junit.Assert.assertEquals;
->>>>>>> epam_master
 
 public class Task040Test {
 
