@@ -1,7 +1,11 @@
 package com.epam.university.java.core.task040;
 
 /**
+<<<<<<< HEAD
  * Ten-Pin Bowling
+=======
+ * Ten-Pin Bowling.
+>>>>>>> epam_master
  */
 public interface Task040 {
 

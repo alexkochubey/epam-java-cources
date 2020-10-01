@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+<<<<<<< HEAD
 import static org.junit.Assert.*;
+=======
+import static org.junit.Assert.assertEquals;
+
+>>>>>>> epam_master
 
 public class Task041Test {
 

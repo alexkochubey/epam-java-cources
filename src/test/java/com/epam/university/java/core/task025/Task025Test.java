@@ -19,9 +19,18 @@ public class Task025Test {
         instance.getAmountOfAlteredLetters(null);
     }
 
+<<<<<<< HEAD
     @Test(expected = IllegalArgumentException.class)
     public void testIfSignalSOS() throws Exception {
         instance.getAmountOfAlteredLetters("RTWODTWO");
+=======
+    @Test
+    public void testIfSignalSos() throws Exception {
+        assertEquals("Invalid result",
+                8,
+                instance.getAmountOfAlteredLetters("RTWODTWOA")
+        );
+>>>>>>> epam_master
     }
 
     @Test
