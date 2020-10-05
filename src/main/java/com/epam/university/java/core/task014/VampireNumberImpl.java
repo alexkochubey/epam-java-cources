@@ -5,6 +5,12 @@ public class VampireNumberImpl implements VampireNumber {
     private final int second;
     private final int multiplication;
 
+    /**
+     * Default constructor.
+     * @param first value of first number
+     * @param second value of second number
+     */
+
 
     public VampireNumberImpl(int first, int second) {
         this.first = first;
