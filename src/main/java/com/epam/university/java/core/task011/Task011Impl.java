@@ -1,76 +1,93 @@
 package com.epam.university.java.core.task011;
 
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Objects;
 import java.util.LinkedList;
 
+
 public class Task011Impl implements Task011 {
+
     @Override
     public String getLastName(String[] collection) {
         if (collection == null
-                || collection.length < 0
-                || Arrays.asList(collection).contains(null)) {
-            throw new IllegalArgumentException("Array is not provided");
+                || collection.length == 0) {
+            throw new IllegalArgumentException();
         }
+        int goneCounter = 0;
+        int pointer = 0;
         if (collection.length == 1) {
             return collection[0];
         }
-        int indx = 0;
-        while (collection.length != 1) {
-            for (int i = 0; i < collection.length; i++) {
-                if (indx % 2 == 0) {
-                    collection[i] = null;
-                }
-                indx++;
-                Object[] original;
+        do {
+            collection[pointer] = "gone";
+            goneCounter++;
+            while (collection[pointer].equals("gone")) {
+                pointer = (pointer + 1) % collection.length;
             }
-            collection = Arrays.stream(collection).filter(Objects::nonNull).toArray(String[]::new);
-        }
-        return collection[0];
+
+            pointer = (pointer + 1) % collection.length;
+
+            while (collection[pointer].equals("gone")) {
+                pointer = (pointer + 1) % collection.length;
+            }
+        } while (goneCounter < collection.length - 1);
+        return collection[pointer];
     }
+
 
     @Override
     public String getLastName(ArrayList<String> collection) {
-        if (collection == null || collection.size() < 0) {
+        if (collection == null
+                || collection.size() == 0) {
             throw new IllegalArgumentException();
         }
+
+        int goneCounter = 0;
+        int pointer = 0;
+
         if (collection.size() == 1) {
             return collection.get(0);
         }
-        int indx = 0;
-        while (collection.size() != 1) {
-            for (int i = 0; i < collection.size(); i++) {
-                if (indx % 2 == 0) {
-                    collection.set(i, null);
-                }
-                indx++;
+
+        do {
+            collection.set(pointer, "gone");
+            goneCounter++;
+            while (collection.get(pointer).equals("gone")) {
+                pointer = (pointer + 1) % collection.size();
             }
-            collection.removeAll(Collections.singleton(null));
-        }
-        return collection.get(0);
+
+            pointer = (pointer + 1) % collection.size();
+
+            while (collection.get(pointer).equals("gone")) {
+                pointer = (pointer + 1) % collection.size();
+            }
+        } while (goneCounter < collection.size() - 1);
+
+
+        return collection.get(pointer);
     }
+
 
     @Override
     public String getLastName(LinkedList<String> collection) {
-        if (collection == null || collection.size() == 0) {
+        if (collection == null
+                || collection.size() == 0) {
             throw new IllegalArgumentException();
         }
         if (collection.size() == 1) {
-            return collection.get(0);
+            return collection.getFirst();
         }
-        int indx = 0;
-        while (collection.size() != 1) {
-            for (int i = 0; i < collection.size(); i++) {
-                if (indx % 2 == 0) {
-                    collection.set(i, null);
-                }
-                indx++;
+        boolean previousStayed = true;
+        do {
+            if (previousStayed) {
+                collection.removeFirst();
+                previousStayed = false;
+            } else {
+                collection.addLast(collection.getFirst());
+                collection.removeFirst();
+                previousStayed = true;
             }
-            collection.removeAll(Collections.singleton(null));
-        }
-        return collection.get(0);
+        } while (collection.size() > 1);
+
+        return collection.getFirst();
     }
 }
