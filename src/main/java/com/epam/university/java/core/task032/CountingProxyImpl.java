@@ -32,6 +32,11 @@ public class CountingProxyImpl implements CountingProxy {
         return null;
     }
 
+    /**
+     * Method to set executor instance to proxy.
+     * @param someActionExecutor - instance of executor
+     * @return proxy of executor
+     */
     public SomeActionExecutor setExecutor(Object someActionExecutor) {
         this.someActionExecutor = someActionExecutor;
         return (SomeActionExecutor) Proxy
