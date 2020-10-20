@@ -28,6 +28,8 @@ tasks.withType(Checkstyle) {
 }
 
 dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
+    implementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.1'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2'
 
