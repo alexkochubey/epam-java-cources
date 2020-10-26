@@ -4,7 +4,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
 public class Task018Impl implements Task018 {
     @Override
@@ -12,35 +11,48 @@ public class Task018Impl implements Task018 {
         if (toCheck == null || annotationToFind == null) {
             throw new IllegalArgumentException();
         }
-        Class<? extends Annotation> annotation = (Class<? extends Annotation>) annotationToFind;
-        Class<?> objectClass = toCheck.getClass();
-        for (Method m : objectClass.getDeclaredMethods()) {
-            if (m.isAnnotationPresent(annotation)) {
-                return true;
-            }
-            for (Parameter p : m.getParameters()) {
-                if (p.isAnnotationPresent(annotation)) {
+        Class clazz = toCheck.getClass();
+        if (clazz.isAnnotationPresent(annotationToFind)) {
+            return true;
+        }
+        Constructor<?>[] constructors = clazz.getDeclaredConstructors();
+        for (Constructor<?> con : constructors) {
+            for (Annotation an : con.getDeclaredAnnotations()) {
+                if (an.annotationType().equals(annotationToFind)) {
                     return true;
                 }
             }
         }
-        if (objectClass.isAnnotationPresent(annotation)) {
-            return true;
+        Method[] methods = clazz.getDeclaredMethods();
+        for (Method method : methods) {
+            for (Annotation an : method.getDeclaredAnnotations()) {
+                if (an.annotationType().equals(annotationToFind)) {
+                    return true;
+                }
+            }
+            Annotation[][] annotations = method.getParameterAnnotations();
+            for (Annotation[] an : annotations) {
+                for (Annotation annotation : an) {
+                    if (annotation.annotationType().equals(annotationToFind)) {
+                        return true;
+                    }
+                }
+            }
         }
-        for (Field f : objectClass.getDeclaredFields()) {
-            if (f.isAnnotationPresent(annotation)) {
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field f : fields) {
+            for (Annotation an : f.getDeclaredAnnotations()) {
+                if (an.annotationType().equals(annotationToFind)) {
+                    return true;
+                }
+            }
+        }
+        Package pack = clazz.getPackage();
+        for (Annotation an : pack.getAnnotations()) {
+            if (an.annotationType().equals(annotationToFind)) {
                 return true;
             }
         }
-        for (Constructor c : objectClass.getDeclaredConstructors()) {
-            if (c.isAnnotationPresent(annotation)) {
-                return true;
-            }
-        }
-        if (objectClass.getPackage().isAnnotationPresent(annotation)) {
-            return true;
-        }
-
         return false;
     }
 }
