@@ -20,12 +20,10 @@ public class Task021Impl implements Task021 {
         PointImpl pointB = (PointImpl) list.get(1);
         PointImpl pointC = (PointImpl) list.get(2);
 
-        // side length
         double c = getSideLength(pointA, pointB);
         double a = getSideLength(pointB, pointC);
         double b = getSideLength(pointC, pointA);
 
-        //angle between sides
         double angleA = getAngle(c, b, a);
         double angleB = getAngle(c, a, b);
         double angleC = getAngle(b, a, c);
@@ -42,7 +40,6 @@ public class Task021Impl implements Task021 {
             return pointC;
         }
 
-        //ray from angle
         double secant1 = 1 / Math.cos(angleA - Math.PI / 6);
         double secant2 = 1 / Math.cos(angleB - Math.PI / 6);
         double secant3 = 1 / Math.cos(angleC - Math.PI / 6);
@@ -57,13 +54,8 @@ public class Task021Impl implements Task021 {
                         p, q, r, pointA.getY(), pointB.getY(), pointC.getY()
                 )
         );
-
-        if (coordY.signum() < 0 && coordY.scale() == 16) {
-            coordY = BigDecimal.valueOf(-0.42264973081037427);
-        } else if (coordY.scale() == 16) {
-            coordY = coordY
-                    .setScale(15, RoundingMode.HALF_UP);
-        }
+        coordY = coordY
+                .setScale(15, RoundingMode.HALF_UP);
 
         return new PointImpl(coordX, coordY.doubleValue());
     }
