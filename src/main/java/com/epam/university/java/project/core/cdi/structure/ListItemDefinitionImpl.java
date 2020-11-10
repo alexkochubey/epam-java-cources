@@ -1,13 +1,13 @@
 package com.epam.university.java.project.core.cdi.structure;
 
+import com.epam.university.java.project.core.cdi.structure.ListDefinition.ListItemDefinition;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "value")
-public class ListItemDefinitionImpl implements ListDefinition.ListItemDefinition {
+public class ListItemDefinitionImpl implements ListItemDefinition {
+
     @XmlValue
     private String value;
 

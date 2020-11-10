@@ -1,15 +1,22 @@
 package com.epam.university.java.project.core.cdi.structure;
 
-
+import com.epam.university.java.project.core.cdi.structure.MapDefinition.MapEntryDefinition;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "entry")
-public class MapEntryDefinitionImpl implements MapDefinition.MapEntryDefinition {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class MapEntryDefinitionImpl implements MapEntryDefinition {
+
+    @XmlElement(name = "key")
     private String key;
+
+    @XmlElement(name = "value")
     private String value;
+
+    @XmlElement(name = "ref")
     private String ref;
 
     @Override
@@ -38,7 +45,7 @@ public class MapEntryDefinitionImpl implements MapDefinition.MapEntryDefinition 
     }
 
     @Override
-    public void setRef(String ref) {
-        this.ref = ref;
+    public void setRef(String reference) {
+        this.ref = reference;
     }
 }
