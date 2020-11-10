@@ -6,21 +6,27 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 @XmlRootElement(name = "bean")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class BeanDefinitionImpl implements BeanDefinition {
-    @XmlAttribute
+
+    @XmlAttribute(name = "id")
     private String id;
+
     @XmlAttribute(name = "class")
     private String className;
+
+    @XmlElement(name = "property", type = BeanPropertyDefinitionImpl.class)
+    private List<BeanPropertyDefinition> properties;
+
     @XmlAttribute(name = "init")
     private String postConstruct;
+
     @XmlAttribute(name = "scope")
     private String scope;
-    @XmlElement(name = "property", type = BeanPropertyDefinitionImpl.class)
-    private Collection<BeanPropertyDefinition> properties;
-
 
     @Override
     public String getId() {
@@ -47,10 +53,9 @@ public class BeanDefinitionImpl implements BeanDefinition {
         return properties;
     }
 
-
     @Override
     public void setProperties(Collection<BeanPropertyDefinition> properties) {
-        this.properties = properties;
+        this.properties = new LinkedList<>(properties);
     }
 
     @Override
@@ -59,8 +64,8 @@ public class BeanDefinitionImpl implements BeanDefinition {
     }
 
     @Override
-    public void setPostConstruct(String postConstruct) {
-        this.postConstruct = postConstruct;
+    public void setPostConstruct(String methodName) {
+        this.postConstruct = methodName;
     }
 
     @Override

@@ -1,11 +1,8 @@
 package com.epam.university.java.project.core.cdi.bean;
 
-
-
 import com.epam.university.java.project.core.cdi.structure.ListDefinitionImpl;
 import com.epam.university.java.project.core.cdi.structure.MapDefinitionImpl;
 import com.epam.university.java.project.core.cdi.structure.StructureDefinition;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -13,19 +10,22 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "property")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class BeanPropertyDefinitionImpl implements BeanPropertyDefinition {
-    @XmlAttribute
+
+    @XmlAttribute(name = "name")
     private String name;
-    @XmlAttribute
+
+    @XmlAttribute(name = "value")
     private String value;
-    @XmlAttribute
+
+    @XmlAttribute(name = "ref")
     private String ref;
 
     @XmlElements({
-            @XmlElement(name = "list", type = ListDefinitionImpl.class),
-            @XmlElement(name = "map", type = MapDefinitionImpl.class)
+            @XmlElement(type = MapDefinitionImpl.class, name = "map"),
+            @XmlElement(type = ListDefinitionImpl.class, name = "list")
     })
     private StructureDefinition data;
 
@@ -33,7 +33,6 @@ public class BeanPropertyDefinitionImpl implements BeanPropertyDefinition {
     public String getName() {
         return name;
     }
-
 
     @Override
     public void setName(String name) {

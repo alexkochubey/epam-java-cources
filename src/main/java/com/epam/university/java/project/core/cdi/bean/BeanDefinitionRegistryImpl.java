@@ -1,20 +1,28 @@
 package com.epam.university.java.project.core.cdi.bean;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class BeanDefinitionRegistryImpl implements BeanDefinitionRegistry {
+    private Map<String, BeanDefinition> beanCache = new ConcurrentHashMap<>();
 
-    private HashMap<String, BeanDefinition> beans = new HashMap<>();
+    public int getRegistrySize() {
+        return beanCache.size();
+    }
 
     @Override
     public void addBeanDefinition(BeanDefinition definition) {
-        String name = definition.getId();
-        beans.put(name,definition);
+        beanCache.put(definition.getId().toLowerCase(), definition);
     }
 
     @Override
     public BeanDefinition getBeanDefinition(String beanId) {
-        BeanDefinition beanDefinition = beans.get(beanId);
-        return beanDefinition;
+        return beanCache.get(beanId);
+    }
+
+    public List<BeanDefinition> getAllBeanDefinitions() {
+        return new ArrayList<>(beanCache.values());
     }
 }
