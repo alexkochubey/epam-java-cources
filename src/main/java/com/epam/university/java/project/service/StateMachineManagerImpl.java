@@ -37,6 +37,7 @@ public class StateMachineManagerImpl implements StateMachineManager {
         return entity;
     }
 
+
     @SuppressWarnings("unchecked")
     @Override
     public <S, E> StatefulEntity<S, E> handleEvent(StatefulEntity<S, E> entity, E event) {
