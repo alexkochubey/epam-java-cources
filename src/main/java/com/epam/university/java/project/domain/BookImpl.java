@@ -1,18 +1,24 @@
 package com.epam.university.java.project.domain;
 
 import com.epam.university.java.project.core.state.machine.domain.StateMachineDefinition;
-
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Random;
 
 public class BookImpl implements Book {
+
     private int id;
     private String title;
     private Collection<String> authors;
     private String serialNumber;
-    private LocalDate returnDate;
-    private BookStatus state;
-    private StateMachineDefinition<BookStatus, BookEvent> stateMachineDefinition;
+    private LocalDate date;
+    private BookStatus bookStatus;
+    private StateMachineDefinition<BookStatus, BookEvent> definition;
+
+    public BookImpl() {
+        Random random = new Random();
+        this.id = random.nextInt(1000) + random.nextInt(1000);
+    }
 
     @Override
     public int getId() {
@@ -50,38 +56,38 @@ public class BookImpl implements Book {
     }
 
     @Override
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
+    public void setSerialNumber(String value) {
+        this.serialNumber = value;
     }
 
     @Override
     public LocalDate getReturnDate() {
-        return returnDate;
+        return date;
     }
 
     @Override
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
+    public void setReturnDate(LocalDate date) {
+        this.date = date;
     }
 
     @Override
     public BookStatus getState() {
-        return state;
+        return bookStatus;
     }
 
     @Override
-    public void setState(BookStatus state) {
-        this.state = state;
+    public void setState(BookStatus bookStatus) {
+        this.bookStatus = bookStatus;
     }
 
     @Override
     public StateMachineDefinition<BookStatus, BookEvent> getStateMachineDefinition() {
-        return stateMachineDefinition;
+        return definition;
     }
 
     @Override
-    public void setStateMachineDefinition(StateMachineDefinition<BookStatus, BookEvent>
-                                                  stateMachineDefinition) {
-        this.stateMachineDefinition = stateMachineDefinition;
+    public void setStateMachineDefinition(
+            StateMachineDefinition<BookStatus, BookEvent> definition) {
+        this.definition = definition;
     }
 }

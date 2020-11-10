@@ -2,24 +2,25 @@ package com.epam.university.java.project.core.state.machine.domain;
 
 import com.epam.university.java.project.domain.BookEvent;
 import com.epam.university.java.project.domain.BookStatus;
-import com.sun.xml.bind.XmlAccessorFactory;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "transition")
-public class StateMachineStateImpl implements StateMachineState<BookStatus,BookEvent> {
-    @XmlAttribute
+@XmlAccessorType(XmlAccessType.FIELD)
+public class StateMachineStateImpl implements StateMachineState<BookStatus, BookEvent> {
+
+    @XmlAttribute(name = "from")
     private BookStatus from;
-    @XmlAttribute
+
+    @XmlAttribute(name = "to")
     private BookStatus to;
-    @XmlAttribute
+
+    @XmlAttribute(name = "on")
     private BookEvent on;
+
     @XmlAttribute(name = "call")
     private String methodToCall;
 
@@ -29,8 +30,8 @@ public class StateMachineStateImpl implements StateMachineState<BookStatus,BookE
     }
 
     @Override
-    public void setFrom(BookStatus from) {
-        this.from = from;
+    public void setFrom(BookStatus state) {
+        this.from = state;
     }
 
     @Override
@@ -39,8 +40,8 @@ public class StateMachineStateImpl implements StateMachineState<BookStatus,BookE
     }
 
     @Override
-    public void setTo(BookStatus to) {
-        this.to = to;
+    public void setTo(BookStatus state) {
+        this.to = state;
     }
 
     @Override
@@ -49,8 +50,8 @@ public class StateMachineStateImpl implements StateMachineState<BookStatus,BookE
     }
 
     @Override
-    public void setOn(BookEvent on) {
-        this.on = on;
+    public void setOn(BookEvent bookEvent) {
+        this.on = bookEvent;
     }
 
     @Override
@@ -59,7 +60,7 @@ public class StateMachineStateImpl implements StateMachineState<BookStatus,BookE
     }
 
     @Override
-    public void setMethodToCall(String methodToCall) {
-        this.methodToCall = methodToCall;
+    public void setMethodToCall(String method) {
+        this.methodToCall = method;
     }
 }

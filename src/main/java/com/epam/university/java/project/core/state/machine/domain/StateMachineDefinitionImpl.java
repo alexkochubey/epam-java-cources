@@ -8,58 +8,61 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
 import java.util.Collection;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "definition")
-public class StateMachineDefinitionImpl implements StateMachineDefinition {
-    @XmlAttribute
-    private BookEvent startEvent;
-    @XmlAttribute
+@XmlAccessorType(XmlAccessType.FIELD)
+public class StateMachineDefinitionImpl implements StateMachineDefinition<BookStatus, BookEvent>  {
+
+    @XmlAttribute(name = "startState")
     private BookStatus startState;
-    @XmlAttribute
-    private Class<? extends StateMachineEventHandler> handler;
+
+    @XmlAttribute(name = "startEvent")
+    private BookEvent startEvent;
+
     @XmlElement(name = "transition", type = StateMachineStateImpl.class)
-    private Collection<StateMachineState<BookStatus, BookEvent>> states = new ArrayList<>();
+    private Collection<StateMachineState<BookStatus, BookEvent>> statesCollection;
+
+    @XmlAttribute(name = "handler")
+    private Class<? extends StateMachineEventHandler> handlerClass;
 
     @Override
-    public Object getStartEvent() {
+    public BookEvent getStartEvent() {
         return startEvent;
     }
 
     @Override
-    public Object getStartState() {
+    public BookStatus getStartState() {
         return startState;
     }
 
     @Override
-    public void setStartEvent(Object o) {
-        startEvent = (BookEvent) o;
+    public void setStartEvent(BookEvent bookEvent) {
+        this.startEvent = bookEvent;
     }
 
     @Override
-    public void setStartState(Object o) {
-        startState = (BookStatus) o;
+    public void setStartState(BookStatus bookStatus) {
+        this.startState = bookStatus;
     }
 
     @Override
-    public Collection<StateMachineState> getStates() {
-        return new ArrayList<>(states);
+    public Collection<StateMachineState<BookStatus, BookEvent>> getStates() {
+        return statesCollection;
     }
 
     @Override
-    public void addState(StateMachineState state) {
-        states.add(state);
+    public void addState(StateMachineState<BookStatus, BookEvent> state) {
+        statesCollection.add(state);
     }
 
     @Override
     public Class<? extends StateMachineEventHandler> getHandlerClass() {
-        return handler;
+        return handlerClass;
     }
 
     @Override
-    public void setHandlerClass(Class handlerClass) {
-        this.handler = handlerClass;
+    public void setHandlerClass(Class<? extends StateMachineEventHandler> handlerClass) {
+        this.handlerClass = handlerClass;
     }
 }
