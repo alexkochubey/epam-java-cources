@@ -3,7 +3,7 @@ package com.epam.university.java.project.core.cdi.context;
 import com.epam.university.java.project.core.cdi.bean.BeanDefinition;
 import com.epam.university.java.project.core.cdi.bean.BeanDefinitionRegistryImpl;
 import com.epam.university.java.project.core.cdi.bean.BeanPropertyDefinition;
-import com.epam.university.java.project.core.cdi.bean.BeanRoot;
+import com.epam.university.java.project.core.cdi.bean.BeanAdapter;
 import com.epam.university.java.project.core.cdi.io.Resource;
 import com.epam.university.java.project.core.cdi.structure.ListDefinitionImpl;
 import com.epam.university.java.project.core.cdi.structure.MapDefinition;
@@ -30,13 +30,13 @@ public class ApplicationContextImpl implements ApplicationContext {
     @Override
     public int loadBeanDefinitions(Resource resource) {
         JAXBContext jaxbContext;
-        BeanRoot beanRoot;
+        BeanAdapter beanAdapter;
         List<BeanDefinition> beansList;
         try {
-            jaxbContext = JAXBContext.newInstance(BeanRoot.class);
+            jaxbContext = JAXBContext.newInstance(BeanAdapter.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            beanRoot = (BeanRoot) unmarshaller.unmarshal(resource.getFile());
-            beansList = beanRoot.getBeansList();
+            beanAdapter = (BeanAdapter) unmarshaller.unmarshal(resource.getFile());
+            beansList = beanAdapter.getBeansList();
             for (BeanDefinition beanDefinition : beansList) {
                 beanDefinitionRegistry.addBeanDefinition(beanDefinition);
             }
@@ -69,16 +69,16 @@ public class ApplicationContextImpl implements ApplicationContext {
 
     @Override
     public Object getBean(String beanName) {
-        Class<?> clazz = null;
+        Class<?> beanEx = null;
         try {
-            clazz = Class.forName(
+            beanEx = Class.forName(
                     beanDefinitionRegistry.getBeanDefinition(beanName.toLowerCase())
                             .getClassName()
             );
         } catch (ClassNotFoundException e) {
             throw new RuntimeException();
         }
-        return getBean(beanName, clazz);
+        return getBean(beanName, beanEx);
     }
 
     @SuppressWarnings("unchecked")

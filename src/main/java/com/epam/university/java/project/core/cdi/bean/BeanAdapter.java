@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "beans")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BeanRoot {
+public class BeanAdapter {
     @XmlElement(name = "bean", type = BeanDefinitionImpl.class)
     private List<BeanDefinition> beansList = new ArrayList<>();
 
